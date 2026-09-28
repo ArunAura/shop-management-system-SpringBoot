@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Idex Page </title>
+</head>
+<body>
+<div th:switch = "${shop}">
+    <h2 th:case = "null" >No User  Yet</h2>
+    <div th:case="*">
+        USERS
+        <TABLE>
+            <thead>
+            <tr>
+                <th>Shop id</th>
+                <th>Owner Name</th>
+                <th>Shop Type</th>
+                <th>Shop Adress</th>
+                <th>Shop Country</th>
+                <th>Edit</th>
+                <th>delete</th>
+            </tr>
+            </thead>
+            <tr th:each="shop : ${shop}">
+                <td th:text="${shop.id}"></td>
+                <td th:text="${shop.ownername}"></td>
+                <td th:text="${shop.shoptype}"></td>
+                <td th:text="${shop.adress}"></td>
+                <td th:text="${shop.country}"></td>
+                <td><a th:href="@{/edit/{id}(id=${shop.id})}">Edit</a></td>
+                <td>
+                    <form th:action="@{/delete/{id}(id=${shop.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </TABLE>
+    </div>
+</div>
+</body>
+</html>

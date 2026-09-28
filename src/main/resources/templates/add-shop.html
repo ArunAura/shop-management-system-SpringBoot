@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop registration</title>
+</head>
+<body>
+<form action="#"  th:action="@{/addshop}" th:object="${shop}" method="post">
+    <label for="ownername">Owner name</label>
+    <input type="text" id="ownername" th:field="*{ownername}" placeholder="Owner name">
+    <span th:if="${#fields.hasErrors('ownername')}" th:errors="*{ownername}"></span>
+
+    <label for="shoptype">Shop Type</label>
+    <input type="text" id="shoptype" th:field="*{shoptype}" placeholder="Shop type">
+    <span th:if="${#fields.hasErrors('shoptype')}" th:errors="*{shoptype}"></span>
+
+    <label for="adress"> Shop Adress</label>
+    <input type="text" id="adress" th:field="*{adress}" placeholder="Adress">
+    <span th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}"></span>
+
+    <label for="country">Shop Country</label>
+    <input type="text" id="country" th:field="*{country}" placeholder="country">
+    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
+
+    <input type="submit" value="Add shop">
+</form>
+
+
+</body>
+</html>
