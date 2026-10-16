@@ -2,21 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Idex Page </title>
 </head>
 <body>
 <div th:switch = "${shop}">
     <h2 th:case = "null" >No User  Yet</h2>
     <div th:case="*">
+
+        <form th:action="@{/index/search}" method="get">
+            <label for="searchid">Enter the search id</label>
+            <input type="number" id="searchid" name="searchid" placeholder="Id to Search">
+            <input type="submit" value="Search">
+        </form>
+
+        <br>
+        <br>
+
+
+        <h3>Import Shops from Excel</h3>
+
+        <form th:action="@{/shops/import}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <input type="file"
+                   name="file"
+                   accept=".xlsx"
+                   required>
+
+            <button type="submit">Upload Excel</button>
+        </form>
         USERS
         <TABLE>
             <thead>
             <tr>
-                <th>Shop id</th>
-                <th>Owner Name</th>
-                <th>Shop Type</th>
-                <th>Shop Adress</th>
-                <th>Shop Country</th>
+                <th><a th:href="@{/index/page/0(sortBy='id')}">Shop id</a></th>
+                <th><a th:href="@{/index/page/0(sortBy='ownername')}">Owner Name</a></th>
+                <th><a th:href="@{/index/page/0(sortBy='shoptype')}">Shop Type</a></th>
+                <th><a th:href="@{/index/page/0(sortBy='adress')}">Shop Adress</a></th>
+                <th><a th:href="@{/index/page/0(sortBy='country')}">Shop Country</a></th>
                 <th>Edit</th>
                 <th>delete</th>
             </tr>
@@ -35,7 +61,17 @@
                 </td>
             </tr>
         </TABLE>
+        <a th:href="@{/shops/export}" class="btn btn-success">
+            Download Latest Excel
+        </a>
+        <br>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li th:each="i : ${#numbers.sequence(0,shop.totalPages-1)}" class="page-item"><a th:href="@{/index/page/{page}(page=${i},sortBy=${sortBy})}" class="page-link" th:text="${i+1}"></a></li>
+        </nav>
     </div>
+
 </div>
 </body>
 </html>
